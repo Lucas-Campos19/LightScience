@@ -1,0 +1,26 @@
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace LightScience.Models
+{
+    public class Cutura
+    {
+        public int CuturaId { get; set; }
+
+        [Required(ErrorMessage = "A categoria da cutura deve ser informado")] //Define que o campo  é obrigatório
+        [Display(Name = "Categoria")]//Define o nome do campo quando o usuário for preencher este campo no sistema
+        [StringLength(50, ErrorMessage = "O tamanho máximo é de 50 caracteres")] //Define a capacidade maxima de caracteres aceita no campo
+        public string Categoria { get; set; }
+
+        [Display(Name = "Descrição")]//Define o nome do campo quando o usuário for preencher este campo no sistema
+        [StringLength(50, ErrorMessage = "O tamanho máximo é de 50 caracteres")] //Define a capacidade maxima de caracteres aceita no campo
+        public string Descricao { get; set; }
+
+        [Required(ErrorMessage = "O nome da cutura deve ser informado")] //Define que o campo é obrigatório
+        [Display(Name = "Cutura")]//Define o nome do campo quando o usuário for preencher este campo no sistema
+        [StringLength(50, ErrorMessage = "O tamanho máximo é de 50 caracteres")] //Define a capacidade maxima de caracteres aceita no campo CategoriaNome
+        public string Nome { get; set; }
+
+        public int LumensId { get; set; }
+        public virtual Lumen Lumen { get; set; }
+    }
+}

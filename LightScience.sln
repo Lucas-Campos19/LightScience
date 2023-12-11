@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.6.33723.286
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LightScience", "LightScience\LightScience.csproj", "{36FDBF7F-84B4-4848-A728-4A3056011C3C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{36FDBF7F-84B4-4848-A728-4A3056011C3C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{36FDBF7F-84B4-4848-A728-4A3056011C3C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{36FDBF7F-84B4-4848-A728-4A3056011C3C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{36FDBF7F-84B4-4848-A728-4A3056011C3C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {089D43CA-EB2C-426D-A311-F05AC9E529A3}
+	EndGlobalSection
+EndGlobal
