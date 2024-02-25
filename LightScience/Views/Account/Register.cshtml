@@ -1,0 +1,78 @@
+﻿@using LightScience.ViewModels;
+@model RegisterViewModel
+@{
+    ViewData["Title"] = "Cadastro";
+}
+
+<!-- Adicionando o Bootstrap CSS -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-beta1/css/bootstrap.min.css">
+
+<style>
+    /* Estilos personalizados */
+    .form-container {
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        background-color: #f8f9fa;
+        margin-top: 100px; /* Margem superior */
+        margin-bottom: 50px; /* Margem inferior */
+    }
+
+    .btn-green {
+        background-color: #28a745;
+        border-color: #28a745;
+    }
+
+        .btn-green:hover {
+            background-color: #218838;
+            border-color: #1e7e34;
+        }
+
+    .form-control:focus {
+        border-color: #28a745;
+        box-shadow: 0 0 0 0.25rem rgba(40, 167, 69, 0.25);
+    }
+</style>
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card form-container">
+                <div class="card-body">
+                    <h3 class="card-title mb-4 text-center">Criar Conta</h3>
+
+                    <!-- Formulário de Cadastro -->
+                    <form asp-action="Register" asp-controller="Account" method="post">
+                        <div class="mb-3">
+                            <input asp-for="Username" class="form-control" placeholder="Nome de Usuário" required>
+                        </div>
+                        <div class="mb-3">
+                            <input asp-for="Email" class="form-control" placeholder="Email" required>
+                        </div>
+                        <div class="mb-3">
+                            <input asp-for="Password" type="password" class="form-control" placeholder="Senha" required>
+                        </div>
+                        <div class="mb-4">
+                            <input asp-for="ConfirmPassword" type="password" class="form-control" placeholder="Confirme a Senha" required>
+                        </div>
+                        <button type="submit" class="btn btn-green w-100">Cadastrar</button>
+
+                        <!-- Botão para redirecionar à tela de login -->
+                        <a asp-action="Login" asp-controller="Account" class="btn btn-link mt-3 d-block text-center">Já tem uma conta? Faça login</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Adicionando o Bootstrap JS -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-beta1/js/bootstrap.bundle.min.js"></script>
+
+
+
+
+
+
+
+

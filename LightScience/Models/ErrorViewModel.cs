@@ -1,4 +1,4 @@
-namespace LightScience.Models
+﻿namespace LightScience.Models
 {
     public class ErrorViewModel
     {

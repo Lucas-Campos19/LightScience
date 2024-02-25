@@ -1,0 +1,60 @@
+﻿@using LightScience.ViewModels;
+@model LoginViewModel
+@{
+    ViewData["Title"] = "Login";
+}
+<style>
+    /* Adicionando estilo personalizado para os inputs */
+    .form-control:hover {
+        border-color: #28a745; /* Cor verde ao passar o mouse */
+    }
+
+    /* Adicionando estilo personalizado para o botão */
+    .btn-green {
+        background-color: #28a745; /* Cor verde do botão */
+        border-color: #28a745; /* Cor da borda do botão */
+    }
+
+        .btn-green:hover {
+            background-color: #218838; /* Cor verde escura ao passar o mouse */
+            border-color: #1e7e34; /* Cor da borda ao passar o mouse */
+        }
+
+    /* Estilo para o fundo do formulário */
+    .login-form {
+        background-color: #f8f9fa; /* Cor de fundo */
+        padding: 20px; /* Espaçamento interno */
+        border-radius: 10px; /* Borda arredondada */
+    }
+
+    /* Estilo para o container do formulário */
+    .form-container {
+        margin-top: 50px; /* Margem superior para posicionar abaixo do formulário de registro */
+    }
+</style>
+<div class="container-fluid">
+    <div class="row justify-content-center align-items-center vh-100">
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body text-center login-form">
+                    <img src="caminho_para_sua_logo.png" alt="logo" class="mb-4" width="72" height="57">
+                    <h3 class="card-title mb-3">Login</h3>
+
+                    <!-- Formulário de Login -->
+                    <form asp-action="Login" asp-controller="Account" method="post">
+                        <div class="mb-3">
+                            <input asp-for="UserName" class="form-control" placeholder="Nome de Usuário" required>
+                        </div>
+                        <div class="mb-3">
+                            <input asp-for="Password" class="form-control" placeholder="Senha" required>
+                        </div>
+                        <button type="submit" class="btn btn-green w-100">Entrar</button>
+
+                        <!-- Novo botão para redirecionar à tela de cadastro -->
+                        <a asp-action="Register" asp-controller="Account" class="btn btn-link text-muted mt-3">Cadastre-se</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
