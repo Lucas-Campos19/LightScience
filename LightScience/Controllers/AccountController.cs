@@ -23,7 +23,7 @@ namespace LightScience.Controllers
             });
         }
         [HttpPost] // Atributo para indicar que este método responde a requisições POST
-        public async Task<IActionResult> SignIn(LoginViewModel signIn, string ReturnUrl) // Método para processar o login
+        public async Task<IActionResult> Login(LoginViewModel signIn, string ReturnUrl) // Método para processar o login
         {
             IdentityUser user;
             if (signIn.UserName.Contains("@")) // Verifica se o usuário digitou um email
@@ -80,13 +80,13 @@ namespace LightScience.Controllers
                 }
             }
 
-            return RedirectToAction("SignIn"); // Redireciona para a tela de login
+            return RedirectToAction("Login"); // Redireciona para a tela de login
         }
 
         public async Task<IActionResult> SignOut() // Método para fazer logout
         {
             await _signInManager.SignOutAsync(); // Faz logout
-            return RedirectToAction(nameof(SignIn)); // Redireciona para a tela de login
+            return RedirectToAction(nameof(Login)); // Redireciona para a tela de login
         }
     }
 }
