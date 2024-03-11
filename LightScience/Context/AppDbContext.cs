@@ -10,9 +10,9 @@ public class AppDbContext: IdentityDbContext<IdentityUser>
 {
     public AppDbContext(DbContextOptions<AppDbContext> options) :base(options)
     {
-    }
-    public DbSet<Lumen> Lumens { get; set; }
 
+    }
+    public DbSet<Lux> Luxs { get; set; }
     public DbSet<Cutura> Cuturas { get; set; }
 
 }

@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using LightScience.Migrations;
+using System.ComponentModel.DataAnnotations;
 
 namespace LightScience.Models
 {
@@ -7,7 +8,7 @@ namespace LightScience.Models
         public int CuturaId { get; set; }
 
         [Required(ErrorMessage = "O código da cutura deve ser informado")] //Define que o campo  é obrigatório
-        [Display(Name = "Còdigo")]//Define o nome do campo quando o usuário for preencher este campo no sistema
+        [Display(Name = "Código")]//Define o nome do campo quando o usuário for preencher este campo no sistema
         public int CodigoCutura { get; set; }
 
         [Required(ErrorMessage = "A categoria da cutura deve ser informado")] //Define que o campo  é obrigatório
@@ -15,16 +16,15 @@ namespace LightScience.Models
         [StringLength(20, ErrorMessage = "O tamanho máximo é de 20 caracteres")] //Define a capacidade maxima de caracteres aceita no campo
         public string Categoria { get; set; }
 
+        [Required(ErrorMessage = "A descrição da cutura deve ser informado")] //Define que o campo  é obrigatório
         [Display(Name = "Descrição")]//Define o nome do campo quando o usuário for preencher este campo no sistema
-        [StringLength(20, ErrorMessage = "O tamanho máximo é de 20 caracteres")] //Define a capacidade maxima de caracteres aceita no campo
+        [StringLength(100, ErrorMessage = "O tamanho máximo é de 20 caracteres")] //Define a capacidade maxima de caracteres aceita no campo
         public string Descricao { get; set; }
 
         [Required(ErrorMessage = "O nome da cutura deve ser informado")] //Define que o campo é obrigatório
         [Display(Name = "Cutura")]//Define o nome do campo quando o usuário for preencher este campo no sistema
         [StringLength(20, ErrorMessage = "O tamanho máximo é de 20 caracteres")] //Define a capacidade maxima de caracteres aceita no campo CategoriaNome
         public string Nome { get; set; }
-
-        public int LumensId { get; set; }
-        public virtual Lumen Lumen { get; set; }
+        public ICollection<Lux> Luxs { get; set;}
     }
 }

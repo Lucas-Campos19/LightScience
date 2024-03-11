@@ -1,0 +1,66 @@
+﻿@model IEnumerable<LightScience.Models.Cutura>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "_LayoutNavBar";
+}
+
+<!-- Adicionando o Bootstrap CSS -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-beta1/css/bootstrap.min.css">
+
+<style>
+    /* Adicionando estilo personalizado para os botões */
+    .btn-edit {
+        background-color: #28a745; /* Cor verde do botão Edit */
+        border-color: #28a745; /* Cor da borda do botão Edit */
+    }
+
+    .btn-details {
+        background-color: #007bff; /* Cor azul do botão Details */
+        border-color: #007bff; /* Cor da borda do botão Details */
+    }
+
+    .btn-delete {
+        background-color: #dc3545; /* Cor vermelha do botão Delete */
+        border-color: #dc3545; /* Cor da borda do botão Delete */
+    }
+</style>
+
+<h1 class="text-center my-4">Index</h1>
+
+<div class="text-center mb-3">
+    <a asp-action="Create" class="btn btn-primary">Create New</a>
+</div>
+
+<div class="table-responsive">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>@Html.DisplayNameFor(model => model.CodigoCutura)</th>
+                <th>@Html.DisplayNameFor(model => model.Categoria)</th>
+                <th>@Html.DisplayNameFor(model => model.Descricao)</th>
+                <th>@Html.DisplayNameFor(model => model.Nome)</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.CodigoCutura)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Categoria)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Descricao)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Nome)</td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.CuturaId" class="btn btn-edit text-white">Edit</a>
+                        <a asp-action="Details" asp-route-id="@item.CuturaId" class="btn btn-details text-white">Details</a>
+                        <a asp-action="Delete" asp-route-id="@item.CuturaId" class="btn btn-delete text-white">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<!-- Adicionando o Bootstrap JS -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-beta1/js/bootstrap.bundle.min.js"></script>

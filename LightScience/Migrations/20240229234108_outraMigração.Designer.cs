@@ -4,6 +4,7 @@ using LightScience.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LightScience.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240229234108_outraMigração")]
+    partial class outraMigração
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -43,6 +46,9 @@ namespace LightScience.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
+                    b.Property<int>("LumensId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Nome")
                         .IsRequired()
                         .HasMaxLength(20)
@@ -53,13 +59,13 @@ namespace LightScience.Migrations
                     b.ToTable("Cuturas");
                 });
 
-            modelBuilder.Entity("LightScience.Models.Lux", b =>
+            modelBuilder.Entity("LightScience.Models.Lumen", b =>
                 {
-                    b.Property<int>("LuxId")
+                    b.Property<int>("LumenId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("LuxId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("LumenId"));
 
                     b.Property<int>("CuturaId")
                         .HasColumnType("int");
@@ -67,14 +73,21 @@ namespace LightScience.Migrations
                     b.Property<DateTime>("DataLeitura")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("QuantidadeLux")
+                    b.Property<int>("MedidaLuminosidade")
                         .HasColumnType("int");
 
-                    b.HasKey("LuxId");
+                    b.Property<int>("QuantidadeLumen")
+                        .HasColumnType("int");
 
-                    b.HasIndex("CuturaId");
+                    b.Property<string>("UnidadeMedida")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.ToTable("Luxs");
+                    b.HasKey("LumenId");
+
+                    b.HasIndex("CuturaId")
+                        .IsUnique();
+
+                    b.ToTable("Lumens");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -275,11 +288,11 @@ namespace LightScience.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("LightScience.Models.Lux", b =>
+            modelBuilder.Entity("LightScience.Models.Lumen", b =>
                 {
                     b.HasOne("LightScience.Models.Cutura", "Cutura")
-                        .WithMany("Luxs")
-                        .HasForeignKey("CuturaId")
+                        .WithOne("Lumen")
+                        .HasForeignKey("LightScience.Models.Lumen", "CuturaId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -339,7 +352,7 @@ namespace LightScience.Migrations
 
             modelBuilder.Entity("LightScience.Models.Cutura", b =>
                 {
-                    b.Navigation("Luxs");
+                    b.Navigation("Lumen");
                 });
 #pragma warning restore 612, 618
         }

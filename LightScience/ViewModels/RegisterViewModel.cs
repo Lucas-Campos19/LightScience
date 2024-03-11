@@ -4,7 +4,7 @@ namespace LightScience.ViewModels
 {
     public class RegisterViewModel
     {
-        [Required, MaxLength(10)] // O campo é obrigatório e tem um comprimento máximo de 10 caracteres
+        [Required, MaxLength(20)] // O campo é obrigatório e tem um comprimento máximo de 10 caracteres
         public string Username { get; set; } // Nome de usuário para registro
 
         [Required, DataType(DataType.EmailAddress)] // O campo é obrigatório e do tipo email
