@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LightScience.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240301010329_att")]
-    partial class att
+    [Migration("20240319190414_trampo")]
+    partial class trampo
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -56,13 +56,13 @@ namespace LightScience.Migrations
                     b.ToTable("Cuturas");
                 });
 
-            modelBuilder.Entity("LightScience.Models.Lumen", b =>
+            modelBuilder.Entity("LightScience.Models.Lux", b =>
                 {
-                    b.Property<int>("LumenId")
+                    b.Property<int>("LuxId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("LumenId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("LuxId"));
 
                     b.Property<int>("CuturaId")
                         .HasColumnType("int");
@@ -70,20 +70,14 @@ namespace LightScience.Migrations
                     b.Property<DateTime>("DataLeitura")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("MedidaLuminosidade")
+                    b.Property<int>("QuantidadeLux")
                         .HasColumnType("int");
 
-                    b.Property<int>("QuantidadeLumen")
-                        .HasColumnType("int");
-
-                    b.Property<string>("UnidadeMedida")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("LumenId");
+                    b.HasKey("LuxId");
 
                     b.HasIndex("CuturaId");
 
-                    b.ToTable("Lumens");
+                    b.ToTable("Luxs");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -284,10 +278,10 @@ namespace LightScience.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("LightScience.Models.Lumen", b =>
+            modelBuilder.Entity("LightScience.Models.Lux", b =>
                 {
                     b.HasOne("LightScience.Models.Cutura", "Cutura")
-                        .WithMany("Lumens")
+                        .WithMany("Luxs")
                         .HasForeignKey("CuturaId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -348,7 +342,7 @@ namespace LightScience.Migrations
 
             modelBuilder.Entity("LightScience.Models.Cutura", b =>
                 {
-                    b.Navigation("Lumens");
+                    b.Navigation("Luxs");
                 });
 #pragma warning restore 612, 618
         }
