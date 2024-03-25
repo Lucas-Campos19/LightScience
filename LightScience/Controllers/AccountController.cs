@@ -17,10 +17,7 @@ namespace LightScience.Controllers
 
         public IActionResult Login(string returnUrl)
         {
-            return View(new LoginViewModel()
-            {
-                ReturnUrl = returnUrl
-            });
+            return View();
         }
         [HttpPost] // Atributo para indicar que este método responde a requisições POST
         public async Task<IActionResult> Login(LoginViewModel signIn, string ReturnUrl) // Método para processar o login
@@ -51,7 +48,7 @@ namespace LightScience.Controllers
             if (ReturnUrl != null) // Verifica se existe uma URL de retorno
                 return LocalRedirect(ReturnUrl); // Redireciona para a URL de retorno
 
-            return RedirectToAction("Index", "Home"); // Redireciona para a página inicial
+            return RedirectToAction("Index", "Cuturas"); // Redireciona para a página inicial
         }
 
         public IActionResult Register() // Método para exibir a tela de registro
