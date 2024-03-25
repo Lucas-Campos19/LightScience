@@ -15,7 +15,7 @@ namespace LightScience.Controllers
             _signInManager = signInManager;
         }
 
-        public IActionResult Login(string returnUrl)
+        public IActionResult Login()
         {
             return View();
         }
