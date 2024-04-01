@@ -67,7 +67,6 @@ namespace LightScience.Controllers
                 Email = register.Email, // Define o email do usuário
                 UserName = register.Username // Define o nome de usuário
            };
-
             IdentityResult result = await _userManager.CreateAsync(newUser, register.Password); // Tenta criar o usuário
             if (!result.Succeeded) // Verifica se a criação do usuário foi bem-sucedida
             {
@@ -76,7 +75,6 @@ namespace LightScience.Controllers
                     ModelState.AddModelError("", item.Description); // Adiciona o erro ao ModelState
                 }
             }
-
             return RedirectToAction("Login"); // Redireciona para a tela de login
         }
 

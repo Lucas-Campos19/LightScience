@@ -13,7 +13,8 @@ namespace LightScience.ViewModels
         [Required, DataType(DataType.Password)] // O campo é obrigatório e do tipo senha
         public string Password { get; set; } // Senha para registro
 
-        [DataType(DataType.Password), Compare(nameof(Password))] // O campo é do tipo senha e deve ser igual ao campo Password
+        [DataType(DataType.Password)]// O campo é do tipo senha e deve ser igual ao campo Password
+        [Compare("Password", ErrorMessage = "As senhas não coincidem.")]
         public string ConfirmPassword { get; set; } // Confirmação de senha para registro
     }
 }
