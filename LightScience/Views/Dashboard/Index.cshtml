@@ -1,0 +1,93 @@
+﻿@{
+    //ViewData["Title"] = "Create";
+    Layout = "_LayoutNavBar";
+}
+<body>
+    <canvas id="chartJSContainer" width="600" height="400"></canvas>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    const totalDuration = 10000;
+    const delayBetweenPoints = totalDuration / 1000;
+
+    // Função para obter o valor Y do ponto anterior
+    const previousY = (ctx) => ctx.index === 0 ? ctx.chart.scales.y.getPixelForValue(100) : ctx.chart.getDatasetMeta(ctx.datasetIndex).data[ctx.index - 1].getProps(['y'], true).y;
+
+    // Opções de animação
+    const animation = {
+        x: {
+            type: 'number',
+            easing: 'linear',
+            duration: delayBetweenPoints,
+            from: NaN, // o ponto é inicialmente ignorado
+            delay(ctx) {
+                if (ctx.type !== 'data' || ctx.xStarted) {
+                    return 0;
+                }
+                ctx.xStarted = true;
+                return ctx.index * delayBetweenPoints;
+            }
+        },
+        y: {
+            type: 'number',
+            easing: 'linear',
+            duration: delayBetweenPoints,
+            from: previousY,
+            delay(ctx) {
+                if (ctx.type !== 'data' || ctx.yStarted) {
+                    return 0;
+                }
+                ctx.yStarted = true;
+                return ctx.index * delayBetweenPoints;
+            }
+        }
+    };
+
+    // Dados para os conjuntos de dados
+    const data = [];
+    const data2 = [];
+    let prev = 100;
+    let prev2 = 80;
+    for (let i = 0; i < 1000; i++) {
+        prev += 5 - Math.random() * 10;
+        data.push({ x: i, y: prev });
+        prev2 += 5 - Math.random() * 10;
+        data2.push({ x: i, y: prev2 });
+    }
+
+    // Configuração do gráfico
+    const config = {
+        type: 'line',
+        data: {
+            datasets: [{
+                borderColor: '#FF5733', // Cor da borda do primeiro conjunto de dados
+                borderWidth: 1,
+                radius: 0,
+                data: data,
+            },
+            {
+                borderColor: '#3399FF', // Cor da borda do segundo conjunto de dados
+                borderWidth: 1,
+                radius: 0,
+                data: data2,
+            }]
+        },
+        options: {
+            animation,
+            interaction: {
+                intersect: false
+            },
+            plugins: {
+                legend: false
+            },
+            scales: {
+                x: {
+                    type: 'linear'
+                }
+            }
+        }
+    };
+
+    var ctx = document.getElementById('chartJSContainer').getContext('2d');
+    new Chart(ctx, config);
+</script>
