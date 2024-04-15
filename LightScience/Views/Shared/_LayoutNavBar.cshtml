@@ -13,21 +13,35 @@
             <button class="btn btn-dark" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
                 <span class="navbar-toggler-icon"></span>
             </button>
+            <div class="dropdown">
+                <a class="btn btn-dark dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <span class="text-white">@User.Identity.Name</span> <!-- Nome do usuário -->
+                    }
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <li><a class="dropdown-item" asp-controller="Account" asp-action="SignOut">Sair</a></li> <!-- Link de logout -->
+                    }
+                </ul>
+            </div>
+
         </div>
     </nav>
 
     <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel" style="background-color: #ffffff;">
         <div class="offcanvas-header">
-            <h5 class="offcanvas-title" id="offcanvasExampleLabel">Offcanvas</h5>
+            <h5 class="offcanvas-title" id="offcanvasExampleLabel"></h5>
             <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
         <div class="offcanvas-body">
             <div>
                 <ul class="list-unstyled">
-                    <a class="nav-link text-dark" asp-controller="Cuturas" asp-action="Index">CADASTRO CUTURAS</a>
+                    <a class="nav-link text-dark" asp-controller="Cuturas" asp-action="Index">CUTURAS</a>
                     <a class="nav-link text-dark" asp-controller="Dashboard" asp-action="Index">DASHBOARD</a>
-                    <a class="nav-link text-dark" asp-controller="" asp-action="">link</a>
-                    <a class="nav-link text-dark" asp-controller="" asp-action="">link</a>
+                    <a class="nav-link text-dark" asp-controller="" asp-action="">MEDIDAS</a>
                 </ul>
             </div>
         </div>

@@ -4,6 +4,31 @@
     ViewData["Title"] = "Index";
     Layout = "_LayoutNavBar";
 }
+@{
+    var successMessage = TempData["SuccessMessage"] as string;
+    if (!string.IsNullOrEmpty(successMessage))
+    {
+        <div class="custom-alert-container">
+            <div class="custom-alert alert alert-success alert-dismissible fade show" id="success-alert" role="alert">
+                @successMessage
+            </div>
+            <div class="alert-timer"></div>
+        </div>
+    }
+}
+
+<!-- Adicione este script no final do corpo da página -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        // Espera a página terminar de carregar e depois esconde o alerta após 9 segundos
+        setTimeout(function () {
+            $("#success-alert").alert('close');
+        }, 9000);
+    });
+</script>
+
+
 
 <!-- Adicionando o Bootstrap CSS -->
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-beta1/css/bootstrap.min.css">
@@ -23,6 +48,32 @@
     .btn-delete {
         background-color: #dc3545; /* Cor vermelha do botão Delete */
         border-color: #dc3545; /* Cor da borda do botão Delete */
+    }
+ .custom-alert-container {
+    position: fixed;
+    right: 100px; /* Esconde o alerta no início */
+    top: 60px;
+    z-index: 9999;
+    animation: slideInLeft 0.5s forwards; /* Adiciona uma animação de transição */
+    }
+
+    .custom-alert {
+        border-radius: 10px;
+        padding: 15px 25px;
+        font-size: 18px;
+        color: #fff;
+        background-color: #4CAF50;
+        border: none;
+    }
+
+    .custom-alert button.btn-close {
+        color: #fff;
+    }
+
+    .alert-timer {
+        height: 5px;
+        background-color: #fff;
+        margin-top: 5px;
     }
 </style>
 

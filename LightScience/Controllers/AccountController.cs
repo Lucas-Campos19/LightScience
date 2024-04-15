@@ -1,4 +1,5 @@
 ﻿using LightScience.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -44,6 +45,8 @@ namespace LightScience.Controllers
                 ModelState.AddModelError("", "Credenciais Inválidas"); // Adiciona um erro ao ModelState
                 return View(signIn); // Retorna a View de login com os dados preenchidos e a mensagem de erro
             }
+
+            TempData["SuccessMessage"] = "Bem vindo ao LightScence, " + user.UserName;
 
             if (ReturnUrl != null) // Verifica se existe uma URL de retorno
                 return LocalRedirect(ReturnUrl); // Redireciona para a URL de retorno

@@ -3,7 +3,9 @@
     Layout = "_LayoutNavBar";
 }
 <body>
-    <canvas id="chartJSContainer" width="600" height="400"></canvas>
+    <div class="chart-container">
+        <canvas id="chartJSContainer" width="200" height="100"></canvas>
+    </div>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
@@ -60,7 +62,7 @@
         type: 'line',
         data: {
             datasets: [{
-                borderColor: '#FF5733', // Cor da borda do primeiro conjunto de dados
+                borderColor: 'transparent', // Definindo a cor da borda como transparente para remover a linha vermelha
                 borderWidth: 1,
                 radius: 0,
                 data: data,
@@ -91,3 +93,12 @@
     var ctx = document.getElementById('chartJSContainer').getContext('2d');
     new Chart(ctx, config);
 </script>
+
+<style>
+    .chart-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh; /* Define a altura da div como a altura total da janela de visualização */
+    }
+</style>

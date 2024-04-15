@@ -7,88 +7,93 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using LightScience.Context;
 using LightScience.Models;
-using Microsoft.AspNetCore.Authorization;
 
-namespace LightScience.Controllers
+namespace LightScence.Controllers
 {
-    [Authorize]
-    public class CuturasController : Controller
+    public class LuxController : Controller
     {
         private readonly AppDbContext _context;
 
-        public CuturasController(AppDbContext context)
+        public LuxController(AppDbContext context)
         {
             _context = context;
         }
 
-        // GET: Cuturas
+        // GET: Lux
         public async Task<IActionResult> Index()
         {
-              return View(await _context.Cuturas.ToListAsync());
+            var appDbContext = _context.Luxs.Include(l => l.Cutura);
+            return View(await appDbContext.ToListAsync());
         }
 
-        // GET: Cuturas/Details/5
+        // GET: Lux/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.Cuturas == null)
+            if (id == null)
             {
                 return NotFound();
             }
 
-            var cutura = await _context.Cuturas
-                .FirstOrDefaultAsync(m => m.CuturaId == id);
-            if (cutura == null)
+            var lux = await _context.Luxs
+                .Include(l => l.Cutura)
+                .FirstOrDefaultAsync(m => m.LuxId == id);
+            if (lux == null)
             {
                 return NotFound();
             }
 
-            return View(cutura);
+            return View(lux);
         }
 
-        // GET: Cuturas/Create
+        // GET: Lux/Create
         public IActionResult Create()
         {
+            ViewData["CuturaId"] = new SelectList(_context.Cuturas, "CuturaId", "Categoria");
             return View();
         }
 
-        // POST: Cuturas/Create
+        // POST: Lux/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        public async Task<IActionResult> Create([Bind("CuturaId,CodigoCutura,Categoria,Descricao,Nome")] Cutura cutura)
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create([Bind("LuxId,QuantidadeLux,DataLeitura,CuturaId")] Lux lux)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(cutura);
+                _context.Add(lux);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(cutura);
+            ViewData["CuturaId"] = new SelectList(_context.Cuturas, "CuturaId", "Categoria", lux.CuturaId);
+            return View(lux);
         }
 
-        // GET: Cuturas/Edit/5
+        // GET: Lux/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.Cuturas == null)
+            if (id == null)
             {
                 return NotFound();
             }
 
-            var cutura = await _context.Cuturas.FindAsync(id);
-            if (cutura == null)
+            var lux = await _context.Luxs.FindAsync(id);
+            if (lux == null)
             {
                 return NotFound();
             }
-            return View(cutura);
+            ViewData["CuturaId"] = new SelectList(_context.Cuturas, "CuturaId", "Categoria", lux.CuturaId);
+            return View(lux);
         }
 
-        // POST: Cuturas/Edit/5
+        // POST: Lux/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        public async Task<IActionResult> Edit(int id, [Bind("CuturaId,CodigoCutura,Categoria,Descricao,Nome")] Cutura cutura)
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int id, [Bind("LuxId,QuantidadeLux,DataLeitura,CuturaId")] Lux lux)
         {
-            if (id != cutura.CuturaId)
+            if (id != lux.LuxId)
             {
                 return NotFound();
             }
@@ -97,12 +102,12 @@ namespace LightScience.Controllers
             {
                 try
                 {
-                    _context.Update(cutura);
+                    _context.Update(lux);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!CuturaExists(cutura.CuturaId))
+                    if (!LuxExists(lux.LuxId))
                     {
                         return NotFound();
                     }
@@ -113,48 +118,47 @@ namespace LightScience.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(cutura);
+            ViewData["CuturaId"] = new SelectList(_context.Cuturas, "CuturaId", "Categoria", lux.CuturaId);
+            return View(lux);
         }
 
-        // GET: Cuturas/Delete/5
+        // GET: Lux/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || _context.Cuturas == null)
+            if (id == null)
             {
                 return NotFound();
             }
 
-            var cutura = await _context.Cuturas
-                .FirstOrDefaultAsync(m => m.CuturaId == id);
-            if (cutura == null)
+            var lux = await _context.Luxs
+                .Include(l => l.Cutura)
+                .FirstOrDefaultAsync(m => m.LuxId == id);
+            if (lux == null)
             {
                 return NotFound();
             }
 
-            return View(cutura);
+            return View(lux);
         }
 
-        // POST: Cuturas/Delete/5
+        // POST: Lux/Delete/5
         [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.Cuturas == null)
+            var lux = await _context.Luxs.FindAsync(id);
+            if (lux != null)
             {
-                return Problem("Entity set 'AppDbContext.Cuturas'  is null.");
+                _context.Luxs.Remove(lux);
             }
-            var cutura = await _context.Cuturas.FindAsync(id);
-            if (cutura != null)
-            {
-                _context.Cuturas.Remove(cutura);
-            }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool CuturaExists(int id)
+        private bool LuxExists(int id)
         {
-          return _context.Cuturas.Any(e => e.CuturaId == id);
+            return _context.Luxs.Any(e => e.LuxId == id);
         }
     }
 }
