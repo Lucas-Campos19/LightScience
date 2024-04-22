@@ -65,6 +65,13 @@ namespace LightScience.Controllers
             if (!ModelState.IsValid) // Verifica se os dados do formulário são válidos
                 return View(); // Retorna a View de registro com os dados preenchidos e as mensagens de erro
 
+            var existingUser = await _userManager.FindByNameAsync(register.Username);
+            if(existingUser != null)
+            {
+                ModelState.AddModelError("", "O nome do usuário já existe");
+                return View(register);
+            }
+
            IdentityUser newUser = new IdentityUser // Cria um novo usuário
            {
                 Email = register.Email, // Define o email do usuário
