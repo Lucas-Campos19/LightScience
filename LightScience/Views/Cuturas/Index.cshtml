@@ -24,58 +24,12 @@
         // Espera a página terminar de carregar e depois esconde o alerta após 9 segundos
         setTimeout(function () {
             $("#success-alert").alert('close');
-        }, 9000);
+        }, 7000);
     });
 </script>
 
-
-
 <!-- Adicionando o Bootstrap CSS -->
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-beta1/css/bootstrap.min.css">
-
-<style>
-    /* Adicionando estilo personalizado para os botões */
-    .btn-edit {
-        background-color: #28a745; /* Cor verde do botão Edit */
-        border-color: #28a745; /* Cor da borda do botão Edit */
-    }
-
-    .btn-details {
-        background-color: #007bff; /* Cor azul do botão Details */
-        border-color: #007bff; /* Cor da borda do botão Details */
-    }
-
-    .btn-delete {
-        background-color: #dc3545; /* Cor vermelha do botão Delete */
-        border-color: #dc3545; /* Cor da borda do botão Delete */
-    }
- .custom-alert-container {
-    position: fixed;
-    right: 100px; /* Esconde o alerta no início */
-    top: 60px;
-    z-index: 9999;
-    animation: slideInLeft 0.5s forwards; /* Adiciona uma animação de transição */
-    }
-
-    .custom-alert {
-        border-radius: 10px;
-        padding: 15px 25px;
-        font-size: 18px;
-        color: #fff;
-        background-color: #4CAF50;
-        border: none;
-    }
-
-    .custom-alert button.btn-close {
-        color: #fff;
-    }
-
-    .alert-timer {
-        height: 5px;
-        background-color: #fff;
-        margin-top: 5px;
-    }
-</style>
 
 <h1 class="text-center my-4">Index</h1>
 
