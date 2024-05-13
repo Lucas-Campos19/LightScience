@@ -19,6 +19,24 @@ namespace LightScence.Controllers
             _context = context;
         }
 
+        [HttpGet("ldr")]
+        public async Task <IActionResult> ReceiveLdrValue([FromQuery] List <int> values)
+        {
+            var luxs = new List<Lux>(); 
+            foreach (var value in values)
+            {
+                var lux = new Lux
+                {
+                    QuantidadeLux = value,
+                    DataLeitura = DateTime.Now
+                };
+                _context.Luxs.Add(lux);
+                luxs.Add(lux);
+            }
+            await _context.SaveChangesAsync();
+            return Ok(luxs);
+        }
+
         // GET: Lux
         public async Task<IActionResult> Index()
         {
