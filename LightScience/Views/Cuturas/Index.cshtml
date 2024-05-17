@@ -16,8 +16,6 @@
         </div>
     }
 }
-
-<!-- Adicione este script no final do corpo da página -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     $(document).ready(function () {
@@ -31,15 +29,27 @@
 <!-- Adicionando o Bootstrap CSS -->
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-beta1/css/bootstrap.min.css">
 
-<h1 class="text-center my-4">Index</h1>
+<!-- Adicionando o Bootstrap CSS -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-beta1/css/bootstrap.min.css">
 
-<div class="text-center mb-3">
-    <a asp-action="Create" class="btn btn-primary">Create New</a>
+<!-- Adicionando o Bootstrap CSS -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-beta1/css/bootstrap.min.css">
+<!DOCTYPE html>
+<html lang="pt-br" dir="ltr">
+<div class="d-flex justify-content-between align-items-center my-4">
+    <h1 style="color: green;">
+        Cadastros de Cuturas
+    </h1>
+    <div>
+        <form class="d-flex">
+            <input class="form-control me-2" type="search" placeholder="Pesquisar pelo código da cutura" aria-label="Search">
+            <button class="btn btn-outline-success" type="submit">Pesquisar</button>
+        </form>
+    </div>
 </div>
-
 <div class="table-responsive">
-    <table class="table table-striped">
-        <thead>
+    <table class="table table-striped table-hover">
+        <thead class="table-dark">
             <tr>
                 <th>@Html.DisplayNameFor(model => model.CodigoCutura)</th>
                 <th>@Html.DisplayNameFor(model => model.Categoria)</th>
@@ -57,14 +67,17 @@
                     <td>@Html.DisplayFor(modelItem => item.Descricao)</td>
                     <td>@Html.DisplayFor(modelItem => item.Nome)</td>
                     <td>
-                        <a asp-action="Edit" asp-route-id="@item.CuturaId" class="btn btn-edit text-white">Edit</a>
-                        <a asp-action="Details" asp-route-id="@item.CuturaId" class="btn btn-details text-white">Details</a>
-                        <a asp-action="Delete" asp-route-id="@item.CuturaId" class="btn btn-delete text-white">Delete</a>
+                        <a asp-action="Edit" asp-route-id="@item.CuturaId" class="btn btn-warning text-white">Editar</a>
+                        <a asp-action="Details" asp-route-id="@item.CuturaId" class="btn btn-info text-white">Detalhes</a>
+                        <a asp-action="Delete" asp-route-id="@item.CuturaId" class="btn btn-danger text-white">Deletar</a>
                     </td>
                 </tr>
             }
         </tbody>
     </table>
+</div>
+<div class="text-center mb-3 mt-3">
+    <a asp-action="Create" class="btn btn-success">Criar Novo</a>
 </div>
 
 <!-- Adicionando o Bootstrap JS -->
