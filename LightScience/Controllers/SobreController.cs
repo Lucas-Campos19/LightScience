@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace LightScence.Controllers
+namespace LightScience.Controllers
 {
 	public class SobreController : Controller
 	{

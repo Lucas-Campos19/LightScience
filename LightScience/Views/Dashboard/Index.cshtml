@@ -1,104 +1,70 @@
 ﻿@{
-    //ViewData["Title"] = "Create";
     Layout = "_LayoutNavBar";
 }
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Real-Time Chart</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/5.0.11/signalr.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns"></script>
+    <style>
+        .chart-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh; /* Define a altura da div como a altura total da janela de visualização */
+        }
+    </style>
+</head>
 <body>
     <div class="chart-container">
-        <canvas id="chartJSContainer" width="200" height="100"></canvas>
+        <canvas id="chartJSContainer" width="400" height="200"></canvas>
     </div>
+
+    <script type="text/javascript">
+        document.addEventListener('DOMContentLoaded', function () {
+            // Inicialização do gráfico
+            const ctx = document.getElementById('chartJSContainer').getContext('2d');
+            const chart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    datasets: [{
+                        label: 'Luz Ambiente',
+                        data: [],
+                        borderColor: 'rgba(75, 192, 75, 1)',
+                        borderWidth: 2,
+                        fill: false
+                    }]
+                },
+                options: {
+                    scales: {
+                        x: {
+                            type: 'time',
+                            time: {
+                                unit: 'second'
+                            }
+                        },
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+
+            // Conexão com o SignalR
+            const connection = new signalR.HubConnectionBuilder().withUrl("/dataHub").build();
+
+            connection.on("ReceiveData", (lux) => {
+                console.log("Data received:", lux); // Log de depuração
+                chart.data.datasets[0].data.push({ x: new Date(lux.dataLeitura), y: lux.quantidadeLux });
+                chart.update();
+            });
+
+            connection.start()
+                .then(() => console.log("SignalR Connected"))
+                .catch(err => console.error("SignalR Connection Error: ", err));
+        });
+    </script>
 </body>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script>
-    const totalDuration = 10000;
-    const delayBetweenPoints = totalDuration / 1000;
-
-    // Função para obter o valor Y do ponto anterior
-    const previousY = (ctx) => ctx.index === 0 ? ctx.chart.scales.y.getPixelForValue(100) : ctx.chart.getDatasetMeta(ctx.datasetIndex).data[ctx.index - 1].getProps(['y'], true).y;
-
-    // Opções de animação
-    const animation = {
-        x: {
-            type: 'number',
-            easing: 'linear',
-            duration: delayBetweenPoints,
-            from: NaN, // o ponto é inicialmente ignorado
-            delay(ctx) {
-                if (ctx.type !== 'data' || ctx.xStarted) {
-                    return 0;
-                }
-                ctx.xStarted = true;
-                return ctx.index * delayBetweenPoints;
-            }
-        },
-        y: {
-            type: 'number',
-            easing: 'linear',
-            duration: delayBetweenPoints,
-            from: previousY,
-            delay(ctx) {
-                if (ctx.type !== 'data' || ctx.yStarted) {
-                    return 0;
-                }
-                ctx.yStarted = true;
-                return ctx.index * delayBetweenPoints;
-            }
-        }
-    };
-
-    // Dados para os conjuntos de dados
-    const data = [];
-    const data2 = [];
-    let prev = 100;
-    let prev2 = 80;
-    for (let i = 0; i < 1000; i++) {
-        prev += 5 - Math.random() * 10;
-        data.push({ x: i, y: prev });
-        prev2 += 5 - Math.random() * 10;
-        data2.push({ x: i, y: prev2 });
-    }
-
-    // Configuração do gráfico
-    const config = {
-        type: 'line',
-        data: {
-            datasets: [{
-                borderColor: 'transparent', // Definindo a cor da borda como transparente para remover a linha vermelha
-                borderWidth: 1,
-                radius: 0,
-                data: data,
-            },
-            {
-                borderColor: '#3399FF', // Cor da borda do segundo conjunto de dados
-                borderWidth: 1,
-                radius: 0,
-                data: data2,
-            }]
-        },
-        options: {
-            animation,
-            interaction: {
-                intersect: false
-            },
-            plugins: {
-                legend: false
-            },
-            scales: {
-                x: {
-                    type: 'linear'
-                }
-            }
-        }
-    };
-
-    var ctx = document.getElementById('chartJSContainer').getContext('2d');
-    new Chart(ctx, config);
-</script>
-
-<style>
-    .chart-container {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh; /* Define a altura da div como a altura total da janela de visualização */
-    }
-</style>
+</html>

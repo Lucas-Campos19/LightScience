@@ -1,13 +1,16 @@
 using LightScience.Models;
+using Microsoft.AspNetCore.SignalR;
 using LightScience.Services;
 using LightScience.Context;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using LightScience.Hubs;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddSignalR();
 
 //Configurar DbContext com uma conexão específica
 builder.Services.AddDbContext<AppDbContext>(options =>
@@ -29,15 +32,16 @@ builder.Services.Configure<EmailSettings>(builder.Configuration.GetSection("Emai
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+//Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
+app.Urls.Add("http://0.0.0.0:5078");
 
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
@@ -49,5 +53,7 @@ app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+app.MapHub<DataHub>("/dataHub");
 
 app.Run();
