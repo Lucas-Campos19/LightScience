@@ -21,8 +21,8 @@ namespace LightScience.Models
         [StringLength(100, ErrorMessage = "O tamanho máximo é de 20 caracteres")] //Define a capacidade maxima de caracteres aceita no campo
         public string Descricao { get; set; }
 
-        [Required(ErrorMessage = "O nome da cutura deve ser informado")] //Define que o campo é obrigatório
-        [Display(Name = "Cutura")]//Define o nome do campo quando o usuário for preencher este campo no sistema
+        [Required(ErrorMessage = "Preencha o m² ideal para essa cutura")] //Define que o campo é obrigatório
+        [Display(Name = "m²")]//Define o nome do campo quando o usuário for preencher este campo no sistema
         [StringLength(20, ErrorMessage = "O tamanho máximo é de 20 caracteres")] //Define a capacidade maxima de caracteres aceita no campo CategoriaNome
         public string Nome { get; set; }
         public ICollection<Lux> Luxs { get; set;}

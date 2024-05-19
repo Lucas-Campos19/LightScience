@@ -1,6 +1,27 @@
 ﻿@{
     Layout = "_LayoutNavBar";
 }
+@{
+    var successMessage = TempData["SuccessMessage"] as string;
+    if (!string.IsNullOrEmpty(successMessage))
+    {
+        <div class="custom-alert-container">
+            <div class="custom-alert alert alert-success alert-dismissible fade show" id="success-alert" role="alert">
+                @successMessage
+            </div>
+            <div class="alert-timer"></div>
+        </div>
+    }
+}
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        // Espera a página terminar de carregar e depois esconde o alerta após 9 segundos
+        setTimeout(function () {
+            $("#success-alert").alert('close');
+        }, 7000);
+    });
+</script>
 <!DOCTYPE html>
 <html lang="pt-br" dir="ltr">
 
@@ -15,11 +36,6 @@
     <!-- ===============================================-->
     <!--    Favicons-->
     <!-- ===============================================-->
-    <link rel="apple-touch-icon" sizes="180x180" href="/img/favicons/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/img/favicons/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/img/favicons/favicon-16x16.png">
-    <link rel="shortcut icon" type="image/x-icon" href="/img/favicons/favicon.ico">
-    <link rel="manifest" href="/img/favicons/manifest.json">
     <meta name="msapplication-TileImage" content="/img/favicons/mstile-150x150.png">
     <meta name="theme-color" content="#ffffff">
     <!-- ===============================================-->

@@ -55,7 +55,7 @@ namespace LightScience.Controllers
             if (ReturnUrl != null) // Verifica se existe uma URL de retorno
                 return LocalRedirect(ReturnUrl); // Redireciona para a URL de retorno
 
-            return RedirectToAction("Index", "Cuturas"); // Redireciona para a página inicial
+            return RedirectToAction("Sobre", "Sobre"); // Redireciona para a página inicial
         }
 
         public IActionResult Register() // Método para exibir a tela de registro
@@ -76,7 +76,14 @@ namespace LightScience.Controllers
                 return View(register);
             }
 
-           IdentityUser newUser = new IdentityUser // Cria um novo usuário
+            var existingEmail = await _userManager.FindByEmailAsync(register.Email);
+            if (existingEmail != null)
+            {
+                ModelState.AddModelError("", "O EMAIL CADASTRADO JÁ EXISTE");
+                return View(register);
+            }
+
+            IdentityUser newUser = new IdentityUser // Cria um novo usuário
            {
                 Email = register.Email, // Define o email do usuário
                 UserName = register.Username // Define o nome de usuário
@@ -92,6 +99,8 @@ namespace LightScience.Controllers
             return RedirectToAction("Login"); // Redireciona para a tela de login
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> SignOut() // Método para fazer logout
         {
             await _signInManager.SignOutAsync(); // Faz logout

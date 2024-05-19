@@ -22,6 +22,7 @@ namespace LightScience.Controllers
             _context = context;
             _hubContext = hubContext;
         }
+
         [HttpPost("ldr")]
         [HttpGet("ldr")]
         public async Task <IActionResult> ReceiveLdrValue([FromQuery] List <int> values, [FromQuery] int cuturaId)

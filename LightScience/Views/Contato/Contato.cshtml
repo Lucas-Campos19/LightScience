@@ -1,0 +1,79 @@
+﻿@{
+    Layout = "_LayoutNavBar";
+    ViewBag.Title = "Contato";
+}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewBag.Title - LightScience</title>
+    <link rel="stylesheet" href="~/css/site.css" />
+    <script src="~/js/site.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        h2 {
+            color: green; /* Cor verde para o título */
+        }
+
+        .form-control {
+            transition: border-color 0.3s;
+        }
+
+            .form-control:hover {
+                border-color: green; /* Cor verde na borda ao passar o mouse */
+            }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-success my-4" style="text-align: left;">
+            <i class="fas fa-leaf"></i> <!-- Ícone de uma folha/planta -->
+            Contato
+        </h1>
+        @if (!string.IsNullOrEmpty(ViewBag.Message))
+        {
+            <div class="alert alert-info">@ViewBag.Message</div>
+        }
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                <form id="contactForm" method="POST" action="/Contato/Enviar">
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <div class="form-group">
+                                <label for="nome">Nome</label>
+                                <input type="text" class="form-control" id="nome" name="Nome" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="form-group">
+                                <label for="email">Endereço de Email</label>
+                                <input type="email" class="form-control" id="email" name="Email" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <div class="form-group">
+                                <label for="assunto">Assunto</label>
+                                <input type="text" class="form-control" id="assunto" name="Assunto" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="form-group">
+                                <label for="mensagem">Mensagem</label>
+                                <textarea class="form-control" id="mensagem" name="Mensagem" rows="5" required></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-success">Enviar Mensagem</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+
+
+
+

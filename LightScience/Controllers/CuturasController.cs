@@ -20,6 +20,11 @@ namespace LightScience.Controllers
         {
             _context = context;
         }
+        private int GenerateNextCodigoCutura()
+        {
+            var lastCutura = _context.Cuturas.OrderByDescending(c => c.CodigoCutura).FirstOrDefault();
+            return lastCutura != null ? lastCutura.CodigoCutura + 1 : 1; // Se não houver registros, começará em 1
+        }
 
         // GET: Cuturas
         public async Task<IActionResult> Index()
@@ -55,10 +60,11 @@ namespace LightScience.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        public async Task<IActionResult> Create([Bind("CuturaId,CodigoCutura,Categoria,Descricao,Nome")] Cutura cutura)
+        public async Task<IActionResult> Create([Bind("CuturaId,Categoria,Descricao,Nome")] Cutura cutura)
         {
             if (ModelState.IsValid)
             {
+                cutura.CodigoCutura = GenerateNextCodigoCutura();
                 _context.Add(cutura);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -86,7 +92,7 @@ namespace LightScience.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        public async Task<IActionResult> Edit(int id, [Bind("CuturaId,CodigoCutura,Categoria,Descricao,Nome")] Cutura cutura)
+        public async Task<IActionResult> Edit(int id, [Bind("CuturaId,Categoria,Descricao,Nome")] Cutura cutura)
         {
             if (id != cutura.CuturaId)
             {

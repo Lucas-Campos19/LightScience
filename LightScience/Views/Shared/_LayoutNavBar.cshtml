@@ -1,11 +1,19 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewData["Title"] - LightScience</title>
+    <title>@ViewData["Title"] - LightScence</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true">
+    <!-- Adicionando o Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        .offcanvas-body .nav-link {
+            color: #1e7e34 !important; /* Verde para os links */
+            margin-bottom: 10px; /* Espaçamento entre os links */
+        }
+    </style>
 </head>
 <body>
     <nav class="navbar navbar-dark" style="background-color: #006400;">
@@ -23,11 +31,15 @@
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                     @if (User.Identity.IsAuthenticated)
                     {
-                        <li><a class="dropdown-item" asp-controller="Account" asp-action="SignOut">Sair</a></li> <!-- Link de logout -->
+                        <li>
+                            <form asp-controller="Account" asp-action="SignOut" method="post" style="display:inline;">
+                                <button type="submit" class="dropdown-item">Sair</button>
+                                @Html.AntiForgeryToken()
+                            </form>
+                        </li> <!-- Link de logout -->
                     }
                 </ul>
             </div>
-
         </div>
     </nav>
 
@@ -37,17 +49,26 @@
         </div>
         <div class="offcanvas-body">
             <div class="list-group list-group-flush text-center">
-                    <ul class="list-unstyled">
-                    <a class="nav-link text-dark" asp-controller="Sobre" asp-action="Sobre"><strong>SOBRE</strong></a>
-                    <a class="nav-link text-dark" asp-controller="Cuturas" asp-action="Index"><strong>CUTURAS</strong></a>
-                    <a class="nav-link text-dark" asp-controller="Dashboard" asp-action="Index"><strong>DASHBOARD</strong></a>
-                    <a class="nav-link text-dark" asp-controller="" asp-action=""><strong>MEDIDAS</strong></a>
-                    <a class="nav-link text-dark" asp-controller="" asp-action=""><strong>RELATÓRIO</strong></a>
-                    </ul>
+                <ul class="list-unstyled">
+                    <a class="nav-link text-dark" asp-controller="Sobre" asp-action="Sobre">
+                        <i class="fas fa-home"></i> <strong>SOBRE</strong>
+                    </a>
+                    <a class="nav-link text-dark" asp-controller="Cuturas" asp-action="Index">
+                        <i class="fas fa-leaf"></i> <strong>CUTURAS</strong>
+                    </a>
+                    <a class="nav-link text-dark" asp-controller="Dashboard" asp-action="Index">
+                        <i class="fas fa-chart-line"></i> <strong>DASHBOARD</strong>
+                    </a>
+                    @* <a class="nav-link text-dark" asp-controller="" asp-action="">
+                        <i class="fas fa-file-alt"></i> <strong>RELATÓRIO</strong>
+                    </a> *@
+                    <a class="nav-link text-dark" asp-controller="Contato" asp-action="Contato">
+                        <i class="fas fa-envelope"></i> <strong>CONTATO</strong>
+                    </a>
+                </ul>
             </div>
         </div>
     </div>
-
 
     <div class="container">
         <main role="main" class="pb-3">
@@ -59,4 +80,6 @@
     <script src="~/js/site.js" asp-append-version="true"></script>
 </body>
 </html>
+
+
 
