@@ -46,7 +46,7 @@ namespace LightScience.Controllers
                 ViewBag.Message = $"Erro ao enviar a mensagem: {ex.Message}";
             }
 
-            return View("Index");
+            return View("Contato");
         }
     }
 }
