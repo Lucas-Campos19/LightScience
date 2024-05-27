@@ -92,7 +92,7 @@ namespace LightScience.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        public async Task<IActionResult> Edit(int id, [Bind("CuturaId,Categoria,Descricao,Nome")] Cutura cutura)
+        public async Task<IActionResult> Edit(int id, [Bind("CuturaId,Categoria,Descricao,Nome,CodigoCutura")] Cutura cutura)
         {
             if (id != cutura.CuturaId)
             {

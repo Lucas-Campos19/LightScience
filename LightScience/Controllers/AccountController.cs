@@ -121,21 +121,28 @@ namespace LightScience.Controllers
             }
 
             var user = await _userManager.FindByEmailAsync(model.Email);
+            if(user is not null)
+            {
+                // Gera o token de redefinição de senha
+                var token = await _userManager.GeneratePasswordResetTokenAsync(user);
+
+                // Gera a URL de redefinição de senha
+                var passwordResetLink = Url.Action("ResetPassword", "Account", new { email = model.Email, token = token }, Request.Scheme);
+
+                // Enviar email com a URL de redefinição de senha
+                await _emailService.SendEmailAsync(model.Email, "Redefinição de senha", $"Por favor, redefina sua senha clicando aqui: {passwordResetLink}");
+
+                return View("ForgotPasswordConfirmation");
+            }
+            else
+            {
+                return View("NotFindUser");
+            }
             //if(user == null || !(await _userManager.IsEmailConfirmedAsync(user)))
             //{ 
             //    // Não revelar que o usuário não existe ou não está confirmado
             //    return View("ForgotPasswordConfirmation");
             //}
-            // Gera o token de redefinição de senha
-            var token = await _userManager.GeneratePasswordResetTokenAsync(user);
-
-            // Gera a URL de redefinição de senha
-            var passwordResetLink = Url.Action("ResetPassword", "Account", new { email = model.Email, token = token }, Request.Scheme);
-
-            // Enviar email com a URL de redefinição de senha
-            await _emailService.SendEmailAsync(model.Email, "Redefinição de senha", $"Por favor, redefina sua senha clicando aqui: {passwordResetLink}");
-
-            return View("ForgotPasswordConfirmation");
         }
         public IActionResult ResetPassword(string token, string email)
         {
