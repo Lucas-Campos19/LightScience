@@ -8,7 +8,5 @@ namespace LightScience.Models
 
         public int QuantidadeLux { get; set; }
         public DateTime DataLeitura { get; set; }
-        public int CuturaId { get; set; }
-        public virtual Cutura Cutura { get; set; }
     }
 }

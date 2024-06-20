@@ -19,7 +19,7 @@ namespace LightScience.Controllers
         public async Task<IActionResult> Enviar(string Nome, string Email, string Assunto, string Mensagem)
         {
             // Configuração do serviço de email
-            var destinatario = "lucas.cgoncalves7@gmail.com"; // Substitua pelo seu endereço de email
+            var destinatario = "lucas.cgoncalves7@gmail.com";
             var corpoEmail = $"<h2>Formulário de Contato</h2><p><strong>Nome:</strong> {Nome}</p><p><strong>Email:</strong> {Email}</p><p><strong>Assunto:</strong> {Assunto}</p><p><strong>Mensagem:</strong> {Mensagem}</p>";
 
             try
@@ -31,11 +31,11 @@ namespace LightScience.Controllers
                 message.Body = corpoEmail;
                 message.IsBodyHtml = true;
 
-                using (var smtpClient = new SmtpClient("smtp.gmail.com")) // Configure seu servidor SMTP
+                using (var smtpClient = new SmtpClient("smtp.gmail.com"))
                 {
-                    smtpClient.Port = 587; // Configure a porta SMTP
-                    smtpClient.Credentials = new System.Net.NetworkCredential("lightscense@gmail.com", "xzyi qdlj ffac zwwa"); // Configure as credenciais SMTP
-                    smtpClient.EnableSsl = true; // Ative SSL se necessário
+                    smtpClient.Port = 587;
+                    smtpClient.Credentials = new System.Net.NetworkCredential("lightscense@gmail.com", "xzyi qdlj ffac zwwa");
+                    smtpClient.EnableSsl = true; 
                     await smtpClient.SendMailAsync(message);
                 }
 
